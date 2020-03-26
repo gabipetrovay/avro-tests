@@ -27,14 +27,21 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
-      KAFKA_LOG4J_ROOT_LOGLEVEL: WARN
+      KAFKA_LOG4J_ROOT_LOGLEVEL: ERROR
       KAFKA_LOG4J_LOGGERS: "\
         kafka=WARN,\
         kafka.authorizer.logger=WARN,\
-        kafka.log.LogCleaner=WARN,\
-        kafka.producer.async.DefaultEventHandler=WARN,\
+        kafka.client.ClientUtils=WARN,\
         kafka.controller=WARN,\
+        kafka.log.LogCleaner=WARN,\
+        kafka.network.Processor,\
         kafka.network.RequestChannel$$=WARN,\
+        kafka.perf=WARN,\
+        kafka.perf.ProducerPerformance$$ProducerThread=WARN,\
+        kafka.producer.async.DefaultEventHandler=WARN,\
         kafka.request.logger=WARN,\
+        kafka.server.KafkaApis,\
+        org.apache.kafka=WARN,\
+        org.apache.zookeeper=WARN,\
         state.change.logger=WARN,\
-        org.apache.zookeeper=WARN"
+        "
