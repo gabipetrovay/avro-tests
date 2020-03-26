@@ -3,7 +3,7 @@
 1. Clone this repo:
 
 ```bash
-git@github.com:gabipetrovay/avro-tests.git
+git clone git@github.com:gabipetrovay/avro-tests.git
 ```
 
 2. Navigate to the repo directory:
@@ -33,7 +33,7 @@ mvn test 2> /dev/null
 # All in one
 
 ```bash
-git@github.com:gabipetrovay/avro-tests.git
+git clone git@github.com:gabipetrovay/avro-tests.git
 cd avro-tests
 docker-compose up -d
 mvn test 2> /dev/null
