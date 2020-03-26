@@ -27,9 +27,10 @@ public class TestKafkaConsumer extends PropertyReader {
 
         config.put("client.id", InetAddress.getLocalHost().getHostName());
         config.put("group.id", "string-group");
+        config.put("bootstrap.servers", getProperty("kakfa.bootstrap.servers"));
         config.put("key.deserializer", StringDeserializer.class.getCanonicalName());
         config.put("value.deserializer", StringDeserializer.class.getCanonicalName());
-        config.put("bootstrap.servers", getProperty("kakfa.bootstrap.servers"));
+        config.put("auto.offset.reset", "earliest");
 
         consumer = new KafkaConsumer<String, String>(config);
 
