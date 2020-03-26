@@ -1,0 +1,30 @@
+---
+version: "3"
+
+services:
+  avro-zookeeper:
+    image: confluentinc/cp-zookeeper:5.4.1
+    hostname: avro-zookeeper
+    container_name: avro-zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      #ZOOKEEPER_LOG4J_ROOT_LOGLEVEL: DEBUG
+
+  avro-kafka:
+    image: confluentinc/cp-kafka:5.4.1
+    hostname: avro-kafka
+    container_name: avro-kafka
+    depends_on:
+      - avro-zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: avro-zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER:PLAINTEXT,PUBLIC:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: DOCKER://avro-kafka:29092,PUBLIC://localhost:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      #KAFKA_LOG4J_ROOT_LOGLEVEL: DEBUG

@@ -1,0 +1,10 @@
+# generated
+target/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# VIM
+*.sw?
