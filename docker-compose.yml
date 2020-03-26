@@ -10,7 +10,7 @@ services:
       - "2181:2181"
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
-      #ZOOKEEPER_LOG4J_ROOT_LOGLEVEL: DEBUG
+      ZOOKEEPER_LOG4J_ROOT_LOGLEVEL: WARN
 
   avro-kafka:
     image: confluentinc/cp-kafka:5.4.1
@@ -27,4 +27,14 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
-      #KAFKA_LOG4J_ROOT_LOGLEVEL: DEBUG
+      KAFKA_LOG4J_ROOT_LOGLEVEL: WARN
+      KAFKA_LOG4J_LOGGERS: "\
+        kafka=WARN,\
+        kafka.authorizer.logger=WARN,\
+        kafka.log.LogCleaner=WARN,\
+        kafka.producer.async.DefaultEventHandler=WARN,\
+        kafka.controller=WARN,\
+        kafka.network.RequestChannel$$=WARN,\
+        kafka.request.logger=WARN,\
+        state.change.logger=WARN,\
+        org.apache.zookeeper=WARN"
