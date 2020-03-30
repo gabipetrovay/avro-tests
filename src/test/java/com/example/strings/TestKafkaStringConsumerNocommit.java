@@ -1,4 +1,6 @@
-package com.example;
+package com.example.strings;
+
+import com.example.PropertyReader;
 
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -16,7 +18,7 @@ import java.util.Arrays;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
-public class TestKafkaConsumer extends PropertyReader {
+public class TestKafkaStringConsumerNocommit extends PropertyReader {
 
     private static Consumer<String, String> consumer;
 
@@ -31,6 +33,7 @@ public class TestKafkaConsumer extends PropertyReader {
         config.put("key.deserializer", StringDeserializer.class.getCanonicalName());
         config.put("value.deserializer", StringDeserializer.class.getCanonicalName());
         config.put("auto.offset.reset", "earliest");
+        config.put("enable.auto.commit", false);
 
         consumer = new KafkaConsumer<String, String>(config);
 
@@ -53,6 +56,8 @@ public class TestKafkaConsumer extends PropertyReader {
         for (ConsumerRecord<String, String> record : records) {
             System.out.printf("offset = %d, key = %s, value = %s%n", record.offset(), record.key(), record.value());
         }
+
+        consumer.commitSync();
     }
 
 }

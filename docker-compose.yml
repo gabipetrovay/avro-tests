@@ -45,3 +45,16 @@ services:
         org.apache.zookeeper=WARN,\
         state.change.logger=WARN,\
         "
+  avro-schema-registry:
+    image: confluentinc/cp-schema-registry:5.4.1
+    hostname: avro-schema-registry
+    container_name: avro-schema-registry
+    depends_on:
+      - avro-zookeeper
+      - avro-kafka
+    ports:
+      - "8082:8082"
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: avro-schema-registry
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://avro-kafka:29092
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8082

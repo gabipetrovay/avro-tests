@@ -1,7 +1,13 @@
-package com.example;
+package com.example.avro;
+
+import com.example.PropertyReader;
+
+import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
+import io.confluent.kafka.serializers.KafkaAvroSerializer;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
+import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -17,7 +23,7 @@ import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-public class TestKafkaProducer extends PropertyReader {
+public class TestKafkaAvroProducer extends PropertyReader {
 
     private static final String STATIC_KEY = "static-key";
 
@@ -28,11 +34,12 @@ public class TestKafkaProducer extends PropertyReader {
 
         Properties config = new Properties();
 
-        config.put("client.id", InetAddress.getLocalHost().getHostName());
-        config.put("key.serializer", StringSerializer.class.getCanonicalName());
-        config.put("value.serializer", StringSerializer.class.getCanonicalName());
-        config.put("bootstrap.servers", getProperty("kakfa.bootstrap.servers"));
-        config.put("acks", "all");
+        config.put(ProducerConfig.CLIENT_ID_CONFIG, InetAddress.getLocalHost().getHostName());
+        config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getCanonicalName());
+        config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class.getCanonicalName());
+        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, getProperty("kakfa.bootstrap.servers"));
+        config.put(ProducerConfig.ACKS_CONFIG, "all");
+        config.put(AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, getProperty("kafka.schema-registry.url"));
 
         producer = new KafkaProducer<String, String>(config);
     }
@@ -53,7 +60,7 @@ public class TestKafkaProducer extends PropertyReader {
     @Test
     public void testProduceMessageSync() throws InterruptedException, ExecutionException {
 
-        String topic = getProperty("kafka.topics.strings");
+        String topic = getProperty("kafka.topics.avro");
 
         final ProducerRecord<String, String> record = new ProducerRecord<>(topic, STATIC_KEY,
                 "this is the string message at " + new Date());
