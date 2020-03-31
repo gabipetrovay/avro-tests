@@ -8,3 +8,6 @@ target/
 
 # VIM
 *.sw?
+
+# MacOS
+.DS_Store

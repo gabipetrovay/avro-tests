@@ -40,9 +40,9 @@
 
         <!-- Testing -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.6.1</version>
             <scope>test</scope>
         </dependency>
 
@@ -53,8 +53,42 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>local</id>
+            <properties>
+                <propertiesFile>local</propertiesFile>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <propertiesFile>dev</propertiesFile>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
         <plugins>
+            <!-- display active profile in compile phase -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-help-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>show-profiles</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>active-profiles</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -81,6 +115,16 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <systemPropertyVariables>
+                        <applicationProperties>application.properties</applicationProperties>
+                    </systemPropertyVariables>
+                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -7,9 +7,10 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -22,7 +23,8 @@ public class TestKafkaStringConsumerNocommit extends PropertyReader {
 
     private static Consumer<String, String> consumer;
 
-    @BeforeClass
+
+    @BeforeAll
     public static void initializeProducer() throws UnknownHostException {
 
         Properties config = new Properties();
@@ -41,13 +43,14 @@ public class TestKafkaStringConsumerNocommit extends PropertyReader {
         consumer.subscribe(Arrays.asList(topic));
     }
 
-    @AfterClass
+    @AfterAll
     public static void closeConsumer() throws UnknownHostException {
 
         consumer.close();
     }
 
     @Test
+    @Order(2)
     public void testConsumeMessageSync() throws InterruptedException, ExecutionException {
 
         ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(500));

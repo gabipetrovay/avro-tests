@@ -1,6 +1,6 @@
 package com.example;
 
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,7 +11,7 @@ public class PropertyReader {
 
     private static Properties properties;
 
-    @BeforeClass
+    @BeforeAll
     public static void initializeProperties() throws FileNotFoundException, IOException {
 
         String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
