@@ -42,6 +42,8 @@ public class TestKafkaStringValues extends PropertyReader {
     @BeforeAll
     public static void initializeProducer() throws UnknownHostException {
 
+        System.out.println(System.getProperty("log4j.configuration"));
+
         Properties config = new Properties();
 
         config.put("client.id", InetAddress.getLocalHost().getHostName());

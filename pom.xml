@@ -122,7 +122,7 @@
                 <version>2.22.2</version>
                 <configuration>
                     <systemPropertyVariables>
-                        <applicationProperties>application.properties</applicationProperties>
+                        <log4j.configuration>file:log4j.properties</log4j.configuration>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
