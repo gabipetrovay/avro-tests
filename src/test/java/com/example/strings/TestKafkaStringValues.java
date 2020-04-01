@@ -40,9 +40,13 @@ public class TestKafkaStringValues extends PropertyReader {
     private static Consumer<String, String> consumer;
 
     @BeforeAll
-    public static void initializeProducer() throws UnknownHostException {
+    public static void init() throws Exception {
 
-        System.out.println(System.getProperty("log4j.configuration"));
+        initializeProducer();
+        initializeConsumer();
+    }
+
+    private static void initializeProducer() throws UnknownHostException {
 
         Properties config = new Properties();
 
@@ -56,8 +60,7 @@ public class TestKafkaStringValues extends PropertyReader {
         producer = new KafkaProducer<String, String>(config);
     }
 
-    @BeforeAll
-    public static void initializeConsumer() throws UnknownHostException {
+    private static void initializeConsumer() throws UnknownHostException {
 
         Properties config = new Properties();
 
