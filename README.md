@@ -27,7 +27,7 @@ mvn test
 or the following to remove the verbose Kafka producer and consumer logging:
 
 ```bash
-mvn test 2> /dev/null
+mvn test
 ```
 
 # All in one
@@ -36,5 +36,5 @@ mvn test 2> /dev/null
 git clone git@github.com:gabipetrovay/avro-tests.git
 cd avro-tests
 docker-compose up -d
-mvn test 2> /dev/null
+mvn test
 ```
