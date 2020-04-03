@@ -11,3 +11,9 @@ target/
 
 # MacOS
 .DS_Store
+
+# non-local configurations
+application-*.properties
+
+# credentials
+kafka-credentials/
