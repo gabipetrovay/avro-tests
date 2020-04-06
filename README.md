@@ -24,12 +24,6 @@ docker-compose up -d
 mvn test
 ```
 
-or the following to remove the verbose Kafka producer and consumer logging:
-
-```bash
-mvn test
-```
-
 # All in one
 
 ```bash
